@@ -11,7 +11,11 @@ const dataDir = path.join(__dirname, '..', 'data');
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8100',
+  methods: ['GET','POST','PUT','DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use('/api/tasks', tasksRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
